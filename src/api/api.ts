@@ -2,6 +2,22 @@ import type { Challenge } from "../types/challenge";
 
 const BASE_URL = "https://dummyjson.com";
 
+function mapCategory(category: string): string {
+  switch (category.toLowerCase()) {
+    case "smartphones":
+    case "laptops":
+      return "Web";
+    case "fragrances":
+    case "skincare":
+      return "Forensics";
+    case "groceries":
+      return "Crypto";
+    default:
+      return "Web"; // fallback
+  }
+}
+
+
 interface ProductResponse {
   products: {
     id: number;
@@ -19,12 +35,13 @@ export async function fetchChallenges(): Promise<Challenge[]> {
   const data: ProductResponse = await response.json();
 
   return data.products.map((product) => ({
-    id: product.id,
-    title: product.title,
-    description: product.description,
-    category: product.category,
-    points: product.price,
-    difficulty: product.rating,
-    author: product.brand,
-  }));
+  id: product.id,
+  title: product.title,
+  description: product.description,
+  category: mapCategory(product.category), // <-- mapped here
+  points: product.price,
+  difficulty: product.rating,
+  author: product.brand,
+}));
+
 }
