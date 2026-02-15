@@ -1,37 +1,19 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
-import { fetchChallenges } from "../api/api";
-import type { Challenge } from "../types/challenge";
+import { ref, } from "vue"
+import ChallengeCard from "../components/ChallengeCard.vue"
+import LoadingSpinner from "../components/LoadingSpinner.vue"
+import { useChallenges } from "../composables/useChallenges"
 
-const challenges = ref<Challenge[]>([]);
-const searchQuery = ref("");
-const selectedCategory = ref("All");
-const loading = ref(true);
+const searchQuery = ref("")
+const selectedCategory = ref("All")
 
-onMounted(async () => {
-  try {
-    challenges.value = await fetchChallenges();
-  } catch (err) {
-    console.error("Failed to fetch challenges", err);
-  } finally {
-    loading.value = false;
-  }
-});
-
-// Computed filtered challenges
-const filteredChallenges = computed(() => {
-  return challenges.value.filter((c) => {
-    const matchesCategory =
-      selectedCategory.value === "All" ||
-      c.category.toLowerCase() === selectedCategory.value.toLowerCase();
-    const matchesSearch =
-      c.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      c.description.toLowerCase().includes(searchQuery.value.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-});
+const { filteredChallenges, loading, error, categories } = useChallenges(
+  searchQuery,
+  selectedCategory
+)
 
 </script>
+
 
 <template>
   <div class="p-6">
@@ -45,47 +27,22 @@ const filteredChallenges = computed(() => {
         class="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-1/3"
       />
 
-      <select
-        v-model="selectedCategory"
-        class="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-1/4"
-      >
-        <option>All</option>
-        <option>Web</option>
-        <option>Crypto</option>
-        <option>Forensics</option>
+      <select v-model="selectedCategory">
+        <option v-for="cat in categories" :key="cat">{{ cat }}</option>
       </select>
     </div>
 
-    <div v-if="loading">Loading challenges...</div>
-
-    <div
-      v-else
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-    >
-      <div
+    <!-- States -->
+    <LoadingSpinner v-if="loading" />
+    <div v-else-if="error" class="text-center text-red-500 py-12">
+      {{ error }}
+    </div>
+    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <ChallengeCard
         v-for="challenge in filteredChallenges"
         :key="challenge.id"
-        class="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition"
-      >
-        <div class="flex justify-between items-center mb-2">
-          <h2 class="text-xl font-semibold">{{ challenge.title }}</h2>
-          <span
-            :class="{
-              'bg-blue-200 text-blue-800': challenge.category === 'Web',
-              'bg-purple-200 text-purple-800': challenge.category === 'Crypto',
-              'bg-green-200 text-green-800': challenge.category === 'Forensics',
-              'bg-gray-200 text-gray-800': !['Web','Crypto','Forensics'].includes(challenge.category)
-            }"
-            class="px-2 py-1 rounded text-sm font-medium"
-          >
-            {{ challenge.category }}
-          </span>
-        </div>
-        <p class="text-gray-600 text-sm mb-2">{{ challenge.description }}</p>
-        <p class="text-sm font-medium">Points: {{ challenge.points }}</p>
-        <p class="text-sm font-medium">Difficulty: {{ challenge.difficulty }}</p>
-      </div>
+        :challenge="challenge"
+      />
     </div>
   </div>
 </template>
-

@@ -45,3 +45,23 @@ export async function fetchChallenges(): Promise<Challenge[]> {
 }));
 
 }
+export async function fetchChallengeById(id: string): Promise<Challenge> {
+  const response = await fetch(`${BASE_URL}/products/${id}`);
+
+  if (!response.ok) {
+    throw new Error("Challenge not found");
+  }
+
+  const product = await response.json();
+
+  return {
+    id: product.id,
+    title: product.title,
+    description: product.description,
+    category: mapCategory(product.category),
+    points: product.price,
+    difficulty: product.rating,
+    author: product.brand,
+  };
+}
+
