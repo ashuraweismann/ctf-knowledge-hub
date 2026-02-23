@@ -4,6 +4,7 @@ import { computed } from "vue"
 import LoadingSpinner from "../components/LoadingSpinner.vue"
 import { useChallenge } from "../composables/useChallenge"
 import { usePosts } from "../composables/usePosts"
+import { ref } from "vue"
 
 const route = useRoute()
 const router = useRouter()
@@ -12,11 +13,30 @@ const id = route.params.id as string
 
 const { challenge, loading, error } = useChallenge(id)
 
-const { posts, loading: postsLoading } = usePosts()
+const { posts, loading: postsLoading, createPost } = usePosts()
+
+const newTitle = ref("")
+const newContent = ref("")
+
+
+
+const handleSubmit = async () => {
+  await createPost({
+    challengeId: Number(id),
+    title: newTitle.value,
+    content: newContent.value,
+    author: "anonymous",
+    difficulty: difficultyLabel.value
+  })
+
+  newTitle.value = ""
+  newContent.value = ""
+}
 
 const relatedPosts = computed(() => {
+  const challengeId = Number(id)
   return posts.value.filter(
-    (post) => post.challengeId === id
+    (post) => Number(post.challengeId) === challengeId
   )
 })
 
@@ -118,20 +138,23 @@ const goBack = () => {
         </p>
       </div>
 
-      <!-- Walkthrough Section -->
+    <!-- Walkthrough Section -->
 <div class="border-t pt-6">
   <h2 class="text-xl font-semibold mb-4">
     Walkthroughs
   </h2>
 
+  <!-- Loading existing posts -->
   <div v-if="postsLoading">
     <LoadingSpinner />
   </div>
 
+  <!-- No walkthroughs yet -->
   <div v-else-if="relatedPosts.length === 0" class="text-gray-500">
     No walkthroughs available yet.
   </div>
 
+  <!-- List of walkthroughs -->
   <div v-else class="space-y-4">
     <div
       v-for="post in relatedPosts"
@@ -144,12 +167,41 @@ const goBack = () => {
       <p class="text-sm text-gray-600 mb-2">
         {{ post.content.slice(0, 120) }}...
       </p>
-      <button
+      <router-link
+        :to="`/posts/${post.id}`"
         class="text-blue-600 text-sm hover:underline"
       >
         Read More →
-      </button>
+      </router-link>
     </div>
+  </div>
+
+  <!-- Add Walkthrough Form -->
+  <div class="mt-6">
+    <h3 class="text-lg font-semibold mb-2">Add Walkthrough</h3>
+    <form @submit.prevent="handleSubmit" class="space-y-3">
+      <input
+        v-model="newTitle"
+        type="text"
+        placeholder="Title"
+        class="w-full border p-2 rounded"
+        required
+      />
+
+      <textarea
+        v-model="newContent"
+        placeholder="Walkthrough content..."
+        class="w-full border p-2 rounded"
+        required
+      ></textarea>
+
+      <button
+        type="submit"
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Submit
+      </button>
+    </form>
   </div>
 </div>
 

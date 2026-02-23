@@ -14,6 +14,7 @@ const router = createRouter({
     { path: '/login', component: LoginView },
     {path: '/challenges/:id',component: () => import('../views/ChallengeDetailView.vue'),props: true},
     {path: "/challenges/:id",name: "challenge-detail",component: ChallengeDetailView},
+    {path: "/posts/:id",name: "PostDetail",component: () => import("../views/PostDetailView.vue")},
   ],
 })
 

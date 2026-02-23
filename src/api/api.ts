@@ -64,11 +64,38 @@ export async function fetchChallengeById(id: string): Promise<Challenge> {
     author: product.brand,
   };
 }
-export async function fetchPosts() {
-  const response = await fetch("http://localhost:3000/posts")
+const BACKEND_URL = "http://localhost:5000";
+
+export interface posts {
+  id: number;
+  challengeId: number;
+  title: string;
+  content: string;
+  author: string;
+  difficulty: string;
+}
+
+export async function fetchPosts(): Promise<posts[]> {
+  const response = await fetch(`${BACKEND_URL}/posts`);
+
   if (!response.ok) {
-    throw new Error("Failed to fetch posts")
+    throw new Error("Failed to fetch posts");
   }
-  return response.json()
+
+  return response.json();
+}
+
+export async function fetchPostsByChallengeId(
+  challengeId: number
+): Promise<posts[]> {
+  const response = await fetch(
+    `${BACKEND_URL}/posts?challengeId=${challengeId}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch posts");
+  }
+
+  return response.json();
 }
 
