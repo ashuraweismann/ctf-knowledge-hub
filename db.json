@@ -17,10 +17,26 @@
       "difficulty": "Medium"
     },
     {
-      "id": "56e3",
+      "id": 3,
       "challengeId": 3,
       "title": "THIS IS A TEST",
       "content": "This is a test",
+      "author": "anonymous",
+      "difficulty": "Hard"
+    },
+    {
+      "id": "79f0",
+      "challengeId": 4,
+      "title": "TEST2",
+      "content": "test",
+      "author": "anonymous",
+      "difficulty": "Medium"
+    },
+    {
+      "id": "44b1",
+      "challengeId": 3,
+      "title": "TEST3",
+      "content": "test3",
       "author": "anonymous",
       "difficulty": "Hard"
     }

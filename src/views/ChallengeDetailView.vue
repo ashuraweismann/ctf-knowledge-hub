@@ -5,6 +5,9 @@ import LoadingSpinner from "../components/LoadingSpinner.vue"
 import { useChallenge } from "../composables/useChallenge"
 import { usePosts } from "../composables/usePosts"
 import { ref } from "vue"
+import { useAuthStore } from "../stores/auth"
+
+const auth = useAuthStore()
 
 const route = useRoute()
 const router = useRouter()
@@ -25,7 +28,7 @@ const handleSubmit = async () => {
     challengeId: Number(id),
     title: newTitle.value,
     content: newContent.value,
-    author: "anonymous",
+    author: auth.user?.username || "anonymous",
     difficulty: difficultyLabel.value
   })
 
@@ -176,33 +179,47 @@ const goBack = () => {
     </div>
   </div>
 
-  <!-- Add Walkthrough Form -->
-  <div class="mt-6">
-    <h3 class="text-lg font-semibold mb-2">Add Walkthrough</h3>
-    <form @submit.prevent="handleSubmit" class="space-y-3">
-      <input
-        v-model="newTitle"
-        type="text"
-        placeholder="Title"
-        class="w-full border p-2 rounded"
-        required
-      />
+  <!-- Add Walkthrough Section -->
+<div class="mt-6">
+  <h3 class="text-lg font-semibold mb-2">Add Walkthrough</h3>
 
-      <textarea
-        v-model="newContent"
-        placeholder="Walkthrough content..."
-        class="w-full border p-2 rounded"
-        required
-      ></textarea>
+  <!-- If logged in -->
+  <form
+    v-if="auth.isAuthenticated"
+    @submit.prevent="handleSubmit"
+    class="space-y-3"
+  >
+    <input
+      v-model="newTitle"
+      type="text"
+      placeholder="Title"
+      class="w-full border p-2 rounded"
+      required
+    />
 
-      <button
-        type="submit"
-        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Submit
-      </button>
-    </form>
+    <textarea
+      v-model="newContent"
+      placeholder="Walkthrough content..."
+      class="w-full border p-2 rounded"
+      required
+    ></textarea>
+
+    <button
+      type="submit"
+      class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+    >
+      Submit
+    </button>
+  </form>
+
+  <!-- If NOT logged in -->
+  <div
+    v-else
+    class="bg-gray-100 text-gray-600 p-4 rounded text-sm"
+  >
+    Please log in to add a walkthrough.
   </div>
+</div>
 </div>
 
     </div>
