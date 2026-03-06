@@ -4,11 +4,13 @@ import ChallengesView from '../views/ChallengesView.vue'
 import ResourcesView from '../views/ResourcesView.vue'
 import LoginView from '../views/LoginView.vue'
 import ChallengeDetailView from '../views/ChallengeDetailView.vue'
+import BookmarksView from "../views/BookmarksView.vue"
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', component: HomeView },
+    { path: '/bookmarks', component: BookmarksView },
     { path: '/challenges', component: ChallengesView },
     { path: '/resources', component: ResourcesView },
     { path: '/login', component: LoginView },

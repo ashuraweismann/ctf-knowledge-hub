@@ -99,7 +99,7 @@ const goBack = () => {
     <!-- Content -->
     <div
       v-else-if="challenge"
-      class="bg-white shadow-lg rounded-xl p-8"
+      class="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-8 dark:text-gray-100"
     >
       <!-- Header -->
       <div class="flex flex-wrap items-center justify-between mb-4 gap-2">
@@ -128,7 +128,7 @@ const goBack = () => {
           {{ difficultyLabel }}
         </span>
 
-        <span class="bg-gray-100 px-3 py-1 rounded-full">
+        <span class="bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full">
           {{ challenge.points }} Points
         </span>
       </div>
@@ -136,7 +136,7 @@ const goBack = () => {
       <!-- Description -->
       <div class="mb-8">
         <h2 class="text-xl font-semibold mb-2">Description</h2>
-        <p class="text-gray-700 leading-relaxed">
+        <p class="text-gray-700 dark:text-gray-100 leading-relaxed">
           {{ challenge.description }}
         </p>
       </div>

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type { Challenge } from '../types/challenge'
 import { computed } from "vue"
+import { useBookmarkStore } from "../stores/bookmarks"
+
+const bookmarkStore = useBookmarkStore()
 
 const props = defineProps<{
   challenge: Challenge
@@ -34,9 +37,10 @@ const categoryClasses = (category: string) => {
 <template>
    <router-link
     :to="`/challenges/${challenge.id}`"
-    class="block bg-white shadow-lg rounded-xl p-6 hover:scale-105 transition-transform"
+    class="block bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 hover:scale-105 transition-transform hover:bg-gray-50 dark:hover:bg-gray-700 dark:text-gray-100"
   >
     <div class="flex justify-between items-center mb-2">
+    
       <h2 class="text-xl font-semibold">{{ challenge.title }}</h2>
       <span
         :class="['px-2 py-1 rounded text-sm font-medium', categoryClasses(challenge.category)]"
@@ -63,6 +67,12 @@ const categoryClasses = (category: string) => {
     <div class="flex justify-between text-sm font-medium">
       <p>Points: {{ challenge.points }}</p>
       <p>Difficulty: {{ challenge.difficulty }}</p>
+      <button
+  @click="bookmarkStore.toggleBookmark(challenge.id)"
+  class="text-sm text-yellow-500 hover:underline"
+>
+  {{ bookmarkStore.isBookmarked(challenge.id) ? "★ Bookmarked" : "☆ Bookmark" }}
+</button>
     </div>
   </router-link>
 </template>
