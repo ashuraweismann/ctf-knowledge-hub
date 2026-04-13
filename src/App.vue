@@ -1,18 +1,13 @@
 <script setup lang="ts">
-import Navbar from './components/Navbar.vue'
-
+import Navbar from "./components/Navbar.vue"
 </script>
 
 <template>
-  <div class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white min-h-screen">
-    <div>
-      <Navbar />
-      <router-view />
-    </div>
+  <div class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white min-h-screen transition-colors">
+    <Navbar />
+    <router-view />
   </div>
 </template>
-
-
 
 <style scoped>
 .logo {

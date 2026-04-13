@@ -37,7 +37,7 @@ const categoryClasses = (category: string) => {
 <template>
    <router-link
     :to="`/challenges/${challenge.id}`"
-    class="block bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 hover:scale-105 transition-transform hover:bg-gray-50 dark:hover:bg-gray-700 dark:text-gray-100"
+    class="block bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 hover:scale-105 transition-all hover:bg-gray-50 dark:hover:bg-gray-700 dark:text-gray-100"
   >
     <div class="flex justify-between items-center mb-2">
     

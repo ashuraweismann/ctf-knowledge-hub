@@ -27,48 +27,53 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <div class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-    <div class="bg-white w-full max-w-sm rounded-xl shadow-xl p-6">
-      <h2 class="text-xl font-bold mb-4 text-center">
-        Login
-      </h2>
+  <Teleport to="body">
+    <div
+      class="fixed inset-0 z-1000 flex items-center justify-center bg-black/40 px-4"
+      @click.self="$emit('close')"
+    >
+      <div class="w-full max-w-sm rounded-xl bg-gray-800 p-6 shadow-xl">
+        <h2 class="mb-4 text-center text-xl font-bold">
+          Login
+        </h2>
 
-      <form @submit.prevent="handleLogin" class="space-y-4">
-        <input
-          v-model="username"
-          type="text"
-          placeholder="Username"
-          class="w-full border p-2 rounded"
-          required
-        />
+        <form @submit.prevent="handleLogin" class="space-y-4">
+          <input
+            v-model="username"
+            type="text"
+            placeholder="Username"
+            class="w-full rounded border p-2"
+            required
+          />
 
-        <input
-          v-model="password"
-          type="password"
-          placeholder="Password"
-          class="w-full border p-2 rounded"
-          required
-        />
+          <input
+            v-model="password"
+            type="password"
+            placeholder="Password"
+            class="w-full rounded border p-2"
+            required
+          />
+
+          <button
+            type="submit"
+            class="w-full rounded bg-blue-600 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+            :disabled="loading"
+          >
+            {{ loading ? "Logging in..." : "Login" }}
+          </button>
+
+          <p v-if="error" class="text-center text-sm text-red-500">
+            {{ error }}
+          </p>
+        </form>
 
         <button
-          type="submit"
-          class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:opacity-50"
-          :disabled="loading"
+          @click="$emit('close')"
+          class="mx-auto mt-4 block text-sm text-gray-500 hover:underline"
         >
-          {{ loading ? "Logging in..." : "Login" }}
+          Cancel
         </button>
-
-        <p v-if="error" class="text-red-500 text-sm text-center">
-          {{ error }}
-        </p>
-      </form>
-
-      <button
-        @click="$emit('close')"
-        class="mt-4 text-sm text-gray-500 hover:underline block mx-auto"
-      >
-        Cancel
-      </button>
+      </div>
     </div>
-  </div>
+  </Teleport>
 </template>

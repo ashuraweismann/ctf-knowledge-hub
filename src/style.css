@@ -1,3 +1,17 @@
 @import "tailwindcss";
 
+/* Force app to ignore browser system dark mode preference */
+html {
+  color-scheme: light;
+}
 
+html.dark {
+  color-scheme: dark;
+}
+
+/* Override any prefers-color-scheme media queries */
+@media (prefers-color-scheme: dark) {
+  html:not(.dark) {
+    color-scheme: light !important;
+  }
+}

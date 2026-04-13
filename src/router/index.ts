@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ChallengesView from '../views/ChallengesView.vue'
 import ResourcesView from '../views/ResourcesView.vue'
-import LoginView from '../views/LoginView.vue'
 import ChallengeDetailView from '../views/ChallengeDetailView.vue'
 import BookmarksView from "../views/BookmarksView.vue"
 
@@ -13,10 +12,9 @@ const router = createRouter({
     { path: '/bookmarks', component: BookmarksView },
     { path: '/challenges', component: ChallengesView },
     { path: '/resources', component: ResourcesView },
-    { path: '/login', component: LoginView },
-    {path: '/challenges/:id',component: () => import('../views/ChallengeDetailView.vue'),props: true},
-    {path: "/challenges/:id",name: "challenge-detail",component: ChallengeDetailView},
-    {path: "/posts/:id",name: "PostDetail",component: () => import("../views/PostDetailView.vue")},
+    { path: '/challenges/:id', component: () => import('../views/ChallengeDetailView.vue'), props: true },
+    { path: "/challenges/:id", name: "challenge-detail", component: ChallengeDetailView },
+    { path: "/posts/:id", name: "PostDetail", component: () => import("../views/PostDetailView.vue") },
   ],
 })
 

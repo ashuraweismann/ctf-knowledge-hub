@@ -27,7 +27,7 @@ const { filteredChallenges, loading, error, categories } = useChallenges(
         class="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-1/3"
       />
 
-      <select v-model="selectedCategory">
+      <select v-model="selectedCategory" class="border border-gray-300 rounded-lg px-4 py-2 text-gray-400">
         <option v-for="cat in categories" :key="cat">{{ cat }}</option>
       </select>
     </div>
