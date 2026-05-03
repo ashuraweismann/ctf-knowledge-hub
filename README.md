@@ -52,14 +52,7 @@ This project demonstrates API integration, state management, responsive UI desig
 
 ## 📂 Project Structure
 
-  src/
-  ├── api/ # API calls
-  ├── components/ # Reusable UI components
-  ├── composables/ # Reusable logic (useChallenges, usePosts)
-  ├── stores/ # Pinia stores (auth, theme, bookmarks)
-  ├── views/ # Pages (Home, Challenges, Detail, Login, Resources)
-  ├── router/ # Vue Router config
-  └── App.vue
+  ![File_Structure](./screenshots/File_Structure.png)
 
 --------------------------------------------------------------------
 
@@ -101,11 +94,11 @@ npm run server
 
 ### DummyJSON Endpoints
 
-  /products → Challenges
-  /products/:id → Challenge details
-  /auth/login → Authentication
-  Local Backend
-  /posts → Walkthroughs
+  -/products → Challenges
+  -/products/:id → Challenge details
+  -/auth/login → Authentication
+  -Local Backend
+   -/posts → Walkthroughs
 
 ### 🔐 Test Login Credentials
 
@@ -135,26 +128,26 @@ This project demonstrates:
 ![Home](./screenshots/HomePage_Screenshot.png)
 
 ### 🏠 Home Page Scrolled
-![Home](./screenshots/HomePage Scrolled Down_Screenshot.png)
+![Home](./screenshots/HomePage_Scrolled_Down_Screenshot.png)
 
 ### 🧩 Challenges Page
-![Challenges](./screenshots/Challenges Page_Screenshot.png)
+![Challenges](./screenshots/Challenges_Page_Screenshot.png)
 
 ### 📄 Challenge Detail (Before Login)
-![Detail_Before_Login](./screenshots/Challenge Detail Page Before Login_Screenshot.png)
+![Detail_Before_Login](./screenshots/Challenge_Detail_Page_Before_Login_Screenshot.png)
 
 ### 📄 Challenge Detail (After Login)
-![Detail_After_Login](./screenshots/Challenge Detail Page After Login_Screenshot.png)
+![Detail_After_Login](./screenshots/Challenge_Detail_Page_After_Login_Screenshot.png)
 
 
 ### Resources Page
-![Resources](./screenshots/Resources Page_Screenshot.png)
+![Resources](./screenshots/Resources_Page_Screenshot.png)
 
 ### Bookmarks Page
-![Bookmarks](./screenshots/Bookmarks Page_Screenshot.png)
+![Bookmarks](./screenshots/Bookmarks_Page_Screenshot.png)
 
 ### Login Modal
-![Login_Modal](./screenshots/Login Modal_Screenshot.png)
+![Login_Modal](./screenshots/Login_Modal_Screenshot.png)
 
 
 
