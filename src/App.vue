@@ -1,13 +1,27 @@
 <script setup lang="ts">
 import Navbar from "./components/Navbar.vue"
+import Footer from "./components/Footer.vue"
+
 </script>
 
 <template>
   <div class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white min-h-screen transition-colors">
+    
     <Navbar />
+
+    
     <router-view />
+
+
+    <Footer />
+
+    
+    <LoginView v-if="$route.path === '/login'" />
+
   </div>
 </template>
+
+
 
 <style scoped>
 .logo {
