@@ -94,11 +94,7 @@ npm run server
 
 ### DummyJSON Endpoints
 
-  -/products → Challenges
-  -/products/:id → Challenge details
-  -/auth/login → Authentication
-  -Local Backend
-   -/posts → Walkthroughs
+  ![Endpoints](./screenshots/Endpoints.png)
 
 ### 🔐 Test Login Credentials
 
